@@ -34,3 +34,21 @@ jobs:
 
     - name: Build
       run: npm run build      
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - name: Copy Private Key
+      run: echo "${{ secrets.EC2_PRIVATE_KEY }}" > /tmp/script-tv-access-key.pem
+
+    - name: Set Up SSH
+      run: |
+        chmod 600 /tmp/script-tv-access-key.pem
+        mkdir -p ~/.ssh
+        touch ~/.ssh/known_hosts
+        ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+
+    - name: Deploy to EC2 instance
+      run: |
+        scp -o StrictHostKeyChecking=no -i /tmp/script-tv-access-key.pem -r ./build/* ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:myReactApp
