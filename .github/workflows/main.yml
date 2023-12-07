@@ -48,6 +48,8 @@ jobs:
         mkdir -p ~/.ssh
         touch ~/.ssh/known_hosts
         ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+        echo -e "Host ${{ secrets.EC2_HOST }}\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+
 
     - name: Deploy to EC2 instance
       run: |
