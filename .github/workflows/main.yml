@@ -50,11 +50,22 @@ jobs:
     #     ssh-keyscan -H -v ec2-13-127-139-208.ap-south-1.compute.amazonaws.com >> ~/.ssh/known_hosts
     #     echo -e "Host ec2-13-127-139-208.ap-south-1.compute.amazonaws.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/known_hosts
 
-    - name: Test SSH Connection
-      run: ssh -v -i /tmp/script-tv-access-key.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "echo Hello"
+    # - name: Test SSH Connection
+    #   run: ssh -v -i /tmp/script-tv-access-key.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "echo Hello"
           
-
-
-    - name: Deploy to EC2 instance
+    - name: Pull Repository on EC2
       run: |
-        scp -o StrictHostKeyChecking=no -i /tmp/script-tv-access-key.pem -r ./build/* ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:myReactApp
+        scp -o StrictHostKeyChecking=no -i /tmp/script-tv-access-key.pem -r ./* ${{ secrets.EC2_HOST }}:myReactApp
+        ssh -o StrictHostKeyChecking=no -i /tmp/script-tv-access-key.pem ${{ secrets.EC2_HOST }}  "cd myReactApp && git pull origin develop"
+ 
+    - name: Install Dependencies and Build
+      run: |
+        ssh -o StrictHostKeyChecking=no -i /tmp/script-tv-access-key.pem ${{ secrets.EC2_HOST }}  "cd myReactApp && npm install && npm run build"
+ 
+    - name: Start Angular Project
+      run: |
+        ssh -o StrictHostKeyChecking=no -i /tmp/script-tv-access-key.pem ${{ secrets.EC2_HOST }}  "cd myReactApp && npm start"
+
+    # - name: Deploy to EC2 instance
+    #   run: |
+    #     scp -o StrictHostKeyChecking=no -i /tmp/script-tv-access-key.pem -r ./build/* ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:myReactApp
