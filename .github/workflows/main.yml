@@ -84,7 +84,7 @@ jobs:
         run: |
           git remote -v
           git remote add origin https://github.com/purushottam-skugal/myReactApp.git
-          git remote set-url origin https://github.com/purushottam-skugal/https://github.com/purushottam-skugal/myReactApp.git
+          git remote set-url origin https://github.com/purushottam-skugal/myReactApp.git
 
       - name: Fetch the latest changes
         run: git fetch origin develop
@@ -102,3 +102,8 @@ jobs:
         run: |
           cd myReactApp
           npm start
+
+
+
+
+          # https://github.com/purushottam-skugal/https://github.com/purushottam-skugal/myReactApp.git
