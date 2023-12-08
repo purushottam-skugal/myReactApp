@@ -57,18 +57,34 @@ jobs:
           git config --global user.email "purushottam@skugal.com"
           git config --global user.name "purushottam-skugal"
           
+      - name: Debugging Information
+        run: |
+           ls -al  # List all files and directories in the current location
+            pwd      # Print the current working directory
+      - name: Change to Project Directory
+        run: cd myReactApp
+
+      - name: Verify Git Repository
+        run: git status
+      
+      - name: Initialize Git Repository
+        run: git init
+      
+      - name: Verify Git Repository (Submodule)
+        run: git submodule status
+        
           # Navigate to the repository directory
-          mkdir -p myReactApp
-          cd myReactApp
+        
+          # cd myReactApp
 
-          # Ensure the remote repository is set
-          git remote set-url origin https://github.com/purushottam-skugal/https://github.com/purushottam-skugal/myReactApp.git
+          # # Ensure the remote repository is set
+          # git remote set-url origin https://github.com/purushottam-skugal/https://github.com/purushottam-skugal/myReactApp.git
 
-          # Fetch the latest changes
-          git fetch origin develop
+          # # Fetch the latest changes
+          # git fetch origin develop
 
           # Reset the local branch to match the remote branch
-          git reset --hard origin/develop
+          # git reset --hard origin/develop
 
       - name: Install Dependencies and Build
         run: |
