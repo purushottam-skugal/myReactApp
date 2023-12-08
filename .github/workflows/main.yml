@@ -100,7 +100,7 @@ jobs:
 
       - name: Start React Project
         run: |
-          cd myReactApp
+          cd /home/runner/work/myReactApp/myReactApp
           npm start
 
 
