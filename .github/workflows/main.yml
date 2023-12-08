@@ -55,7 +55,6 @@ jobs:
           
     - name: Pull Repository on EC2
       run: |
-        scp -o StrictHostKeyChecking=no -i /tmp/script-tv-access-key.pem -r ./* ${{ secrets.EC2_HOST }}:myReactApp
         ssh -o StrictHostKeyChecking=no -i /tmp/script-tv-access-key.pem ${{ secrets.EC2_HOST }}  "cd myReactApp && git pull origin develop"
  
     - name: Install Dependencies and Build
