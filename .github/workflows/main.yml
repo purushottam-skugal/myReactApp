@@ -61,17 +61,18 @@ jobs:
         run: |
            ls -al  # List all files and directories in the current location
             pwd      # Print the current working directory
+            
       - name: Print Current Directory
         run: pwd
 
-      # - name: List Project Directory Contents
-      #   run: ls -al myReactApp
-
       - name: Change to Project Directory
         run: cd /home/runner/work/myReactApp/myReactApp
+        
+      - name: List Project Directory Contents
+        run: ls -al myReactApp
 
-      - name: Verify Git Repository
-        run: git status
+      # - name: Verify Git Repository
+      #   run: git status
       
       - name: Initialize Git Repository
         run: git init
