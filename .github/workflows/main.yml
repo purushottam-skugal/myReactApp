@@ -63,9 +63,9 @@ jobs:
             pwd      # Print the current working directory
       - name: Print Current Directory
         run: pwd
-        
+
       - name: Change to Project Directory
-        run: cd /home/runner/work/myReactApp
+        run: /home/runner/work/myReactApp/myReactApp
 
       - name: Verify Git Repository
         run: git status
