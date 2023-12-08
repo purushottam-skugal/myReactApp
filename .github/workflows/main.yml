@@ -64,8 +64,8 @@ jobs:
       - name: Print Current Directory
         run: pwd
 
-      - name: List Project Directory Contents
-        run: ls -al myReactApp
+      # - name: List Project Directory Contents
+      #   run: ls -al myReactApp
 
       - name: Change to Project Directory
         run: cd /home/runner/work/myReactApp/myReactApp
