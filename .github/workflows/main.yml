@@ -58,6 +58,7 @@ jobs:
           git config --global user.name "purushottam-skugal"
           
           # Navigate to the repository directory
+          mkdir myReactApp chmod 700 myReactApp
           cd myReactApp
 
           # Ensure the remote repository is set
