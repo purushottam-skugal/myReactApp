@@ -94,7 +94,7 @@ jobs:
 
       - name: Install Dependencies and Build
         run: |
-          cd myReactApp
+          cd cd /home/runner/work/myReactApp/myReactApp
           npm install
           npm run build
 
