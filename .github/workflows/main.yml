@@ -21,15 +21,15 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install dependencies
-        run: |
-          cd /home/runner/work/myReactApp/myReactApp
-          npm install
+      # - name: Install dependencies
+      #   run: |
+      #     cd /home/runner/work/myReactApp/myReactApp
+      #     npm install
 
-      - name: Build
-        run: |
-          cd /home/runner/work/myReactApp/myReactApp
-          npm run build
+      # - name: Build
+      #   run: |
+      #     cd /home/runner/work/myReactApp/myReactApp
+      #     npm run build
 
   Deploy:
       needs: build
