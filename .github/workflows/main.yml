@@ -20,6 +20,9 @@ jobs:
     - run: CI=false npm run build
     - name: Print Current Directory
       run: pwd
+
+    - name: Debug DEPLOY_TARGET
+      run: echo "DEPLOY_TARGET is ${{ secrets.DEPLOY_TARGET }}"
     - name: ssh deploy on aws ec2
       uses: easingthemes/ssh-deploy@v2.1.4
       env:
