@@ -21,10 +21,7 @@ jobs:
 
     - name: ssh deploy on aws ec2
       uses: easingthemes/ssh-deploy@v2.1.4
-    - name: Debug Rsync
-      run: |
-        rsync -e "ssh -p ${{ secrets.EC2_PORT }} -i /home/runner/.ssh/deploy_key -o StrictHostKeyChecking=no" --recursive -rltgoDzvO /home/runner/work/myReactApp/myReactApp/build/ ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:${{ secrets.EC2_DEPLOY_TARGET }}
-
+      
       env:
         SSH_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
         REMOTE_HOST: ${{ secrets.EC2_HOST }}
