@@ -3,9 +3,8 @@ name: CI/CD React App
 on:
   push:
     branches:
-      - main
+      - develop
 
-      
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -26,7 +25,7 @@ jobs:
         run: npm run build
 
       - name: Create Remote Directory
-        run: ssh -i ${{ secrets.EC2_PRIVATE_KEY }} -p ${{ secrets.EC2_PORT }} ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "mkdir -p ${{ secrets.EC2_DEPLOY_TARGET }}"
+        run: ssh -i ${{ secrets.EC2_PRIVATE_KEY }} -p ${{ secrets.EC2_PORT }} ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "mkdir -p ${{ secrets.EC2_DEPLOY_TARGET }}"  
 
       - name: SSH Deploy to AWS EC2
         uses: easingthemes/ssh-deploy@v2.1.4
