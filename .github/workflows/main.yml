@@ -18,8 +18,6 @@ jobs:
         node-version: 14.x
     - run: npm install
     - run: CI=false npm run build
-    - name: test ssh connection
-      run: ssh -v -i /home/runner/work/myReactApp/myReactApp/ci-cd-deployment-cloudflare.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "echo Hello"
 
     - name: ssh deploy on aws ec2
       uses: easingthemes/ssh-deploy@v2.1.4
