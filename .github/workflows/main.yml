@@ -24,8 +24,9 @@ jobs:
       - name: Build React App
         run: npm run build
 
-      # - name: Create Remote Directory
+      - name: Create Remote Directory
       #   run: ssh -i ${{ secrets.EC2_PRIVATE_KEY }} -p ${{ secrets.EC2_PORT }} ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "mkdir -p ${{ secrets.EC2_DEPLOY_TARGET }}"  
+        run: scp -r -i ${{ secrets.EC2_PRIVATE_KEY }} uploads/* ${{ secrets.EC2_HOST }}:/var/www/html/uploads
 
       - name: SSH Deploy to AWS EC2
         uses: easingthemes/ssh-deploy@v2.1.4
