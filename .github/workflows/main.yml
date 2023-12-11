@@ -1,32 +1,92 @@
-name: CI/CD ReactApp
+name: CI/CD React App
 
 on:
-    push:
-      branches: develop
- 
+  push:
+    branches:
+      - develop 
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x]
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js 14.x to Build
-      uses: actions/setup-node@v2
-      with:
-        node-version: 14.x
-    - run: npm install
-    - run: CI=false npm run build
 
-    - name: ssh deploy on aws ec2
-      uses: easingthemes/ssh-deploy@main
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build React App
+        run: npm run build
+
+      - name: SSH Deploy to AWS EC2
+        uses: easingthemes/ssh-deploy@v2.1.4
+        with:
+          ARGS: -rltgoDzvO
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.EC2_HOST }}
+          REMOTE_USER: ${{ secrets.EC2_USERNAME }}
+          REMOTE_PORT: ${{ secrets.EC2_PORT }}
+          SOURCE: "build/"
+          TARGET: ${{ secrets.EC2_DEPLOY_TARGET }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# name: CI/CD ReactApp
+
+# on:
+#     push:
+#       branches: develop
+ 
+# jobs:
+#   build-and-deploy:
+#     runs-on: ubuntu-latest
+#     strategy:
+#       matrix:
+#         node-version: [14.x]
+#     steps:
+#     - uses: actions/checkout@v2
+#     - name: Use Node.js 14.x to Build
+#       uses: actions/setup-node@v2
+#       with:
+#         node-version: 14.x
+#     - run: npm install
+#     - run: CI=false npm run build
+
+#     - name: ssh deploy on aws ec2
+#       uses: easingthemes/ssh-deploy@main
     
 
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
-        REMOTE_HOST: ${{ secrets.EC2_HOST }}
-        REMOTE_USER: ${{ secrets.EC2_USERNAME }}
-        REMOTE_PORT: ${{ secrets.EC2_PORT }}
-        SOURCE: "build/"
-        TARGET: ${{ secrets.EC2_DEPLOY_TARGET }}
+#       env:
+#         SSH_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
+#         REMOTE_HOST: ${{ secrets.EC2_HOST }}
+#         REMOTE_USER: ${{ secrets.EC2_USERNAME }}
+#         REMOTE_PORT: ${{ secrets.EC2_PORT }}
+#         SOURCE: "build/"
+#         TARGET: ${{ secrets.EC2_DEPLOY_TARGET }}
